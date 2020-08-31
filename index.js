@@ -7,9 +7,11 @@ const mongoose = require("mongoose");
 
 //Routes import
 const account_routes = require("./routes/account.routes");
+const customer_routes = require("./routes/customer.routes");
 
 //API routes
 app.use("/api", account_routes);
+app.use("/api", customer_routes);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
