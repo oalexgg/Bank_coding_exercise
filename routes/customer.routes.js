@@ -12,11 +12,10 @@ api.get(
 api.post(
   "/customer",
   [
-    body("nombre").isString(),
-    body("descripcion").isString(),
-    body("fecha_ingreso").isString(),
-    body("ubicacion").isString(),
-    body("cantidad").isInt(),
+    body("first_name").isString().exists(),
+    body("last_name").isString().exists(),
+    body("phone").isNumeric().exists(),
+    body("address").isString().exists(),
   ],
   customerController.saveCustomer
 );
@@ -24,11 +23,10 @@ api.put(
   "/customer/:id",
   [
     param("id").isString(),
-    body("nombre").isString(),
-    body("descripcion").isString(),
-    body("fecha_ingreso").isString(),
-    body("ubicacion").isString(),
-    body("cantidad").isInt(),
+    body("first_name").isString(),
+    body("last_name").isString(),
+    body("phone").isNumeric(),
+    body("address").isString(),
   ],
   customerController.updateCustomer
 );

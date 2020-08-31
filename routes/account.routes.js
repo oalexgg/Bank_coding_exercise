@@ -4,33 +4,34 @@ const { body, param } = require("express-validator");
 
 const api = express.Router();
 
-api.get("/account/:id?", [param("id").isString()], accountController.listAccounts);
+api.get(
+  "/account/:id?",
+  [param("id").isString().optional()],
+  accountController.listAccounts
+);
 api.post(
   "/account",
   [
-    body("nombre").isString(),
-    body("descripcion").isString(),
-    body("fecha_ingreso").isString(),
-    body("ubicacion").isString(),
-    body("cantidad").isInt(),
+    body("name").isString().exists(),
+    body("type").isString().exists(),
+    body("customer").isString().exists(),
   ],
   accountController.saveAccount
 );
 api.put(
   "/account/:id",
   [
-    param("id").isString(),
-    body("nombre").isString(),
-    body("descripcion").isString(),
-    body("fecha_ingreso").isString(),
-    body("ubicacion").isString(),
-    body("cantidad").isInt(),
+    param("id").isString().exists(),
+    body("name").isString().optional(),
+    body("type").isString().optional(),
+    body("reference").not().exists(),
+    body("customer").not().exists(),
   ],
   accountController.updateAccount
 );
 api.delete(
   "/account/:id",
-  [param("id").isString()],
+  [param("id").isString().exists()],
   accountController.deleteAccount
 );
 module.exports = api;

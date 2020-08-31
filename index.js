@@ -1,9 +1,22 @@
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 const port = 3000;
 const database = "banking";
 const mongoose = require("mongoose");
 
+app.use(
+  bodyParser.json({
+    limit: "100mb",
+  })
+);
+
+app.use(
+  bodyParser.urlencoded({
+    limit: "100mb",
+    extended: true,
+  })
+);
 
 //Routes import
 const account_routes = require("./routes/account.routes");
