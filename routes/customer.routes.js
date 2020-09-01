@@ -13,9 +13,9 @@ api.post(
   "/customer",
   [
     body("first_name").isString().exists(),
-    body("last_name").isString().exists(),
-    body("phone").isNumeric().exists(),
-    body("address").isString().exists(),
+    body("savings_balance").isNumeric().optional(),
+    body("checking_balance").isNumeric().optional(),
+    body("last_name").isString().optional(),
   ],
   customerController.saveCustomer
 );
@@ -25,8 +25,6 @@ api.put(
     param("id").isString(),
     body("first_name").isString(),
     body("last_name").isString(),
-    body("phone").isNumeric(),
-    body("address").isString(),
   ],
   customerController.updateCustomer
 );

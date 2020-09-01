@@ -10,7 +10,7 @@ function listCustomers(req, res) {
     query = Customer.find();
   }
 
-  query.populate("accounts").exec((err, customer) => {
+  query.populate("accounts", "reference name type").exec((err, customer) => {
     if (err) {
       return res.status(500).send({
         message: "Something went wrong",
@@ -39,10 +39,13 @@ function saveCustomer(req, res) {
     return res.status(404).json({ errors: errors.array() });
   }
   var params = req.body;
+  const { checking_balance, savings_balance } = req.body;
+  console.log(params);
   var customer = new Customer({ ...params });
-
+  
   customer.save((err, customerStored) => {
     if (err) {
+      console.log(err);
       return res.status(500).send({
         message: "Something went wrong saving the customer",
         err,

@@ -21,10 +21,12 @@ app.use(
 //Routes import
 const account_routes = require("./routes/account.routes");
 const customer_routes = require("./routes/customer.routes");
+const account_actions_routes = require("./routes/account-actions.routes");
 
 //API routes
 app.use("/api", account_routes);
 app.use("/api", customer_routes);
+app.use("/api", account_actions_routes);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

@@ -12,7 +12,6 @@ api.get(
 api.post(
   "/account",
   [
-    body("name").isString().exists(),
     body("type").isString().exists(),
     body("customer").isString().exists(),
   ],
@@ -34,4 +33,5 @@ api.delete(
   [param("id").isString().exists()],
   accountController.deleteAccount
 );
+
 module.exports = api;

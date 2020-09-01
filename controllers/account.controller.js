@@ -10,27 +10,29 @@ function listAccounts(req, res) {
     query = Account.find();
   }
 
-  query.populate('customer').exec((err, account) => {
-    if (err) {
-      return res.status(500).send({
-        message: "Something went wrong",
-        err,
-      });
-    } else {
-      if (
-        (!Array.isArray(account) && !account) ||
-        (Array.isArray(account) && !account.length)
-      ) {
-        res.status(404).send({
-          message: "Sorry, we couldn't find any acconts!",
+  query
+    .populate("customer", "first_name last_name phone address")
+    .exec((err, account) => {
+      if (err) {
+        return res.status(500).send({
+          message: "Something went wrong",
+          err,
         });
       } else {
-        res.status(200).send({
-          account,
-        });
+        if (
+          (!Array.isArray(account) && !account) ||
+          (Array.isArray(account) && !account.length)
+        ) {
+          res.status(404).send({
+            message: "Sorry, we couldn't find any acconts!",
+          });
+        } else {
+          res.status(200).send({
+            account,
+          });
+        }
       }
-    }
-  });
+    });
 }
 
 function saveAccount(req, res) {
@@ -43,6 +45,7 @@ function saveAccount(req, res) {
 
   account.save((err, accountStored) => {
     if (err) {
+      console.error(err);
       return res.status(500).send({
         message: "Something went wrong saving the account",
         err,
