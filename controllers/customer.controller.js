@@ -39,8 +39,6 @@ function saveCustomer(req, res) {
     return res.status(404).json({ errors: errors.array() });
   }
   var params = req.body;
-  const { checking_balance, savings_balance } = req.body;
-  console.log(params);
   var customer = new Customer({ ...params });
   
   customer.save((err, customerStored) => {

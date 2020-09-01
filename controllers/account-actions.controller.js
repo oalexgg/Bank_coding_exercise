@@ -160,7 +160,6 @@ function calculateInterests(req, res) {
         const months = moment().diff(moment(account.created_at), "months"),
           computed_interest =
             account.balance + months * (account.balance * 0.01);
-        console.log(account.balance, months, account.balance * 0.01);
         res.status(200).send({
           computed_interest,
         });
